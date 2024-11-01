@@ -10,21 +10,10 @@ function getComputerChoice() {
   }
 }
 
-function getHumanChoice() {
-  let userChoice = prompt("Rock, paper, or scissors?").toLowerCase();
-  if (userChoice === "rock" || userChoice === "paper" || userChoice === "scissors") {
-      return userChoice;
-  } else {
-      console.log("Invalid choice.");
-      return getHumanChoice();
-  }
-}
-
 let humanScore = 0;
 let computerScore = 0;
 
-function playRound() {
-  const humanChoice = getHumanChoice();
+function playRound(humanChoice) {
   const computerChoice = getComputerChoice();
 
   if (humanChoice === computerChoice) {
@@ -41,22 +30,39 @@ function playRound() {
       humanScore++;
   }
 
-  console.log(`Human Score: ${humanScore}, Computer Score: ${computerScore}`);
+   console.log(`Human Score: ${humanScore}, Computer Score: ${computerScore}`);
+  const displayresults = document.createElement("div");
+  displayresults.textContent = `Human Score: ${humanScore}, Computer Score: ${computerScore}`;
+  document.body.appendChild(displayresults);
+
+  if (humanScore === 5) {
+    alert("Congratulations! You are the overall winner!");
+} else if (computerScore === 5) {
+    alert("The computer wins the game!");
+}
 }
 
-function playGame() {
-  for (let round = 1; round <= 5; round++) {
-      console.log(`Round ${round}:`);
-      playRound();
-  }
+const rockbutton = document.createElement("button");
+rockbutton.textContent = "Rock";
+rockbutton.addEventListener("click", () => {
+    playRound("rock");
+})
 
-  if (humanScore > computerScore) {
-      console.log("Congratulations! You are the overall winner!");
-  } else if (computerScore > humanScore) {
-      console.log("The computer wins the game!");
-  } else {
-      console.log("The game is a tie!");
-  }
-}
+const scissorsbutton = document.createElement("button");
+scissorsbutton.textContent = "Scissors";
+scissorsbutton.addEventListener("click", () => {
+    playRound("scissors");
+})
 
-playGame();
+const paperbutton = document.createElement("button");
+paperbutton.textContent = "Paper";
+paperbutton.addEventListener("click", () => {
+    playRound("paper");
+})
+
+document.body.appendChild(rockbutton);
+document.body.appendChild(scissorsbutton);
+document.body.appendChild(paperbutton);
+
+
+
